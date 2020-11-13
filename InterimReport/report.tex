@@ -1,0 +1,90 @@
+\documentclass[a4j]{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{float}
+\usepackage{array,booktabs}
+\usepackage{subcaption}
+\usepackage{itembkbx}
+\usepackage{eclbkbox}
+\usepackage{moreverb}
+\usepackage{url}
+\usepackage{amsmath,amssymb}
+\usepackage{eqnarray}
+\usepackage{multirow}
+\usepackage{fancybox}
+\usepackage{ascmac}
+\usepackage[newitem, newenum]{paralist}
+\usepackage[top=25.0truemm, bottom=30.0truemm, left=26.0truemm, right=27.5truemm]{geometry}
+\usepackage{listings,jlisting}
+\usepackage{lscape}
+\lstset{
+language={C++},
+basicstyle={\small},
+identifierstyle={\small},
+commentstyle={\small\itshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tbrl},
+breaklines=true,
+breakindent = 8.58pt,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.0ex,
+showstringspaces=false
+}
+\title {自主課題研究\\中間レポート\\}
+\author {3年 244 清水翔仁 \\学籍番号：1852130904}
+\date{\西暦 提出日：\today}
+\begin{document}
+  %タイトル
+  \maketitle
+  \thispagestyle{empty}
+  \newpage
+  \setcounter{page}{1}
+  \pagestyle{plain}
+
+\section{研究内容}
+  \subsection{テーマ名}
+    RNNを使ったPOMDP環境でのCartPole
+  \subsection{概要}
+    POMDP環境において，DRQNやR2D2などいくつかの手法でCartPoleを実装しそれぞれの結果の比較・検証を行う．
+
+\section{研究計画}
+  今後の研究計画を表\ref{tab_plan}に示す．
+    \begin{table}[!h]
+      \centering
+      \caption{研究計画}
+      \label{tab_plan}
+      \begin{tabular}{l|l}
+      \hline
+      2020/11/20 & プログラムの改善，結果の記録 \\
+      \hline
+      2020/11/27 & プログラムの解析，必要な知識の学習 \\
+      \hline
+      2020/12/11 & プログラムの解析，必要な知識の学習 \\
+      \hline
+      2020/12/18 & 結果の検証・考察 \\
+      \hline
+      2020/12/25 & 結果の検証・考察 \\
+      \hline
+      2021/01/08 & 発表練習，最終レポート作成 \\
+      \hline
+      2021/01/13 & 発表練習，最終レポート作成 \\
+      \hline
+      2021/01/22 & 発表会 \\
+      \hline
+      \end{tabular}
+    \end{table}
+
+\section{進捗状況}
+  本研究に必要な基礎知識として，機械学習，deeplearning，強化学習についての学習を行った．github上にあるプログラムを参考にして実装・検証を行う予定だが，現在実行時にエラーが発生してしまうため，原因を調査中．
+
+\section{今後の方針}
+  表\ref{tab_plan}に示す研究計画に基づき，まずはプログラムのバグ修正を行う．その後正しい実行結果を記録し，ソースコードと照らし合わせそれぞれの手法の理解を深める．特にRNNやPOMDPに関してはかなり専門的な内容になるため，より長期間の学習が必要であると考えられる．またプログラムの実行結果の検証・考察を年内に完了させ，来年は発表資料の作成，最終レポートに研究結果をまとめることに集中する．
+
+\end{document}

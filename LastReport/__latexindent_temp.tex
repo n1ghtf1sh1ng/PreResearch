@@ -1,0 +1,288 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   長野高専電子情報工学科 卒業論文テンプレート
+%
+%   Original by Takuma Yoshida, 2010
+%   Modified by Shoichi Ito, 2014-
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 卒業論文スタイルファイルの適用([a4,11pt]のようなオプションは不要)
+\documentclass{eithesis}
+
+% よくつかうパッケージの読み込み
+\usepackage{verbatim}
+\usepackage{fancybox}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{courier}
+\usepackage{url}
+\usepackage{fancyhdr}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   表紙の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\etGengou{令和2年度}      % 年度
+\etTitle{RNNを用いたPOMDP環境での倒立振り子問題}     % 論文タイトル(日本語)
+\etTitleEn{}    % 論文タイトル(英語)
+\etDate{令和2年2月17日}   % 提出日(1月以降は年に注意)
+\etAuthor{清水 翔仁}       % 著者フルネーム
+\etLabName{西村研究室}     % 研究室名
+\etMyProfessor{山根 智}    % 指導教員フルネーム
+\etMakeTitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   目次の出力
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \pagenumbering{roman}
+% \tableofcontents
+% \clearpage
+\pagenumbering{arabic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   ヘッダー・フッターの設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancyplain}
+\lhead{\leftmark}  % ヘッダー左側(\leftmarkのデフォルトはsectionhead)
+\chead{}           % ヘッダー中央
+\rhead{\rightmark} % ヘッダー右側(\rightmarkのデフォルトはchapterhead)
+\lfoot{}           % フッター左側
+\cfoot{\thepage}   % フッター中央(ページ番号)
+\rfoot{}           % フッター右側
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   論文本体
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{はじめに}
+  % ここで，論文で採りあげていることについて，
+  % 現状・問題意識・それが解決するとどんないいことがあるか
+  % などについてデータを並べながら説明する．
+  % 最後に，論文全体の構成(2章では○○について述べ，3章では・・・)を書く．
+  % 全体で1〜2ページ．
+  強化学習は，試行錯誤から学習する点で様々な問題に適用しやすいため，近年盛んに研究されている．DQN(Deep Q-Network) は，Q学習にディープラーニングを用いた強化学習のモデルで，ゲーム画面を入力したAtari 2600 の様々なゲームに対して人間より良い性能を実現した．しかし，DQN の入力はエージェントが観察した最近の4つのフレームのみを用いるため，意味がある行動をするために4ステップより昔の情報を必要とするような環境に対しては性能が低下する可能性がある．この欠点を解決するためにDRQN(Deep Recurrent Q-Network)が提案されている．DRQN は，DQNに循環神経網の一種であるLSTMを組み合わせることで過去の情報を扱う．さらにLSTMはより長期的な情報を考慮することで，現実で起こりうる不完全な情報にも対応できるため，POMDP(Partially Observable Markov Decision Process)の環境でより効果を発揮することができる．
+
+  しかし，DRQNは学習の時にLSTMの初期状態をゼロベクトルで初期化するため，学習時に用いた情報のタイムステップより長い期間に対して学習することが難しいという欠点がある．そこで本研究では，LSTMの初期状態を与える方法を複数用意し，それぞれの実行結果についての考察を行う．
+  % \clearpage
+
+\chapter{原理}
+  % 本章では，本研究で用いた手法の原理について説明する．
+  \section{POMDP(Partially Observable Markov Decision Process)}
+    状態遷移が確率的に生じる動的システムの確率モデルをMDPという．遷移する過程において，将来状態の条件付き確率分布が，現在状態のみに依存し，過去のいかなる状態にも依存しない．(マルコフ性)
+
+    各時刻において過程 (process) はある状態 (state) を取り，意思を決定するエージェントはその状態において利用可能な行動 (action) を任意に選択する． その後過程はランダムに新しい状態へと遷移し，その際にエージェントは状態遷移に対応した報酬 (reward) を受けとる．よってMDPは以下の要素で構成される．
+    \begin{equation}
+    \begin{array}{l}\text { 行動集合 }: \mathcal{A}=\left\{a^{(1)}, a^{(2)}, \cdots,\right\} \\ \text { 状態集合 }: S=\left\{s^{(1)}, s^{(2)}, \cdots,\right\} \\ \text { 遷移関数 }: T_{i j k}=\operatorname{Pr}\left(s_{t+1}=s^{(j)} \mid s_{t}=s^{(i)}, a_{t}=a^{(k)}\right) \\ \text { 報酬関数 }: r = g(s, a) \\ \text { 初期状態確率 }: p_{0}=\operatorname{Pr}\left(s_{0}\right)\end{array}
+    \end{equation}
+
+    POMDPはエージェントの状態観測に不確実性を付加させることによりMDPを拡張したものである．
+
+  \section{Q学習(Q-learning)}
+    Q学習は強化学習における手法の一種である．Q学習はMDPにおいて全ての状態が十分にサンプリングできるようなエピソードを無限回試行した場合，最適な評価値に収束することがわかっている．Q学習では実行するルールに対しそのルールの有効性を示すQ値という値を持たせ，エージェントが行動するたびにその値を更新する．ここでいうルールとはある状態とその状態下においてエージェントが可能な行動を対にしたものである．例えばエージェントの現在の状態を$s_{t}$とし，この状態で可能な行動が$a$，$b$，$c$，$d$の4通りあるとする．このとき，エージェントは4つのQ値，$Q(s_{t},a)$，$Q(s_{t},b)$，$Q(s_{t},c)$，$Q(s_{t},d)$を元に行う行動を決定する．行動の決定方法は理論上では無限回数試行するならランダムでもQ値は収束するが，現実には収束を早めるため，なるべく Q値の大きな行動が高確率で選ばれるように行う．Q値の計算式を式(\ref{eq_Q})に示す．
+    \begin{equation}\label{eq_Q}
+      Q\left(s_{t}, a_{t}\right) = (1-\alpha) Q\left(s_{t}, a_{t}\right)+\alpha\left(r_{t+1}+\gamma \max _{a_{t+1}} Q\left(s_{t+1}, a_{t+1}\right)\right)
+    \end{equation}
+    ここで$\gamma$は割引率といい，将来の価値をどれだけ割り引いて考えるかのパラメータである．
+  \section{DQN(Deep Q-Network)}
+    Q値を最大化させる関数である最適行動価値関数を，ニューラルネットワーク(NN)を使った近似関数で求める手法．状態をNNの入力にし，出力層の各ノードが，各行動の行動価値を出力するようにする．
+
+    強化学習において与えられるデータは時系列的に連続したものになっており，データ間に相関が出てしまうためバラバラにする必要がある．これをExperience Replayという．
+
+  \section{RNN(Recurrent Neural Network)}
+    RNNとは，Deep Learningの手法の一種であり，時系列データの分析に特化している．\figref{fig_RNN}に，RNNの模式図を示す．ここで，$x_t$を時刻$t$におけるRNNの入力，$h_t$を時刻$t$におけるRNNの出力とする．
+    \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=14cm]{./images/RNN.png}
+      \caption{展開されたRNN}
+      \label{fig_RNN}
+    \end{figure}
+
+    \figref{fig_RNN}のように，RNNは内部にループ構造を持っている．これにより，前のステップでの分析結果を記憶し，データの時系列を理解することができる．しかし，RNNには長期依存性問題という欠点がある．長期依存性問題とは，記憶するステップ数が膨大になると計算が爆発するという問題である．そのため，現在単純なRNNはあまり使用されていない．
+
+  \section{LSTM(Long Short Term Memory)}
+    LSTMとは，RNNの長期依存性問題を解決した手法である．\figref{fig_RNN_inner}にRNNの内部を，\figref{fig_LSTM_inner}にLSTMの内部を示す．このとき，$\sigma$は0〜1を出力する関数，tanhは-1〜1を出力する関数とする．
+    \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=14cm]{./images/RNN_inner.png}
+      \caption{RNNの内部}
+      \label{fig_RNN_inner}
+    \end{figure}
+    \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=14cm]{./images/LSTM_inner.png}
+      \caption{LSTMの内部}
+      \label{fig_LSTM_inner}
+    \end{figure}
+
+    \figref{fig_RNN_inner}，\figref{fig_LSTM_inner}より，RNNは単一のtanh関数という非常に単純な構造に比べ，LSTMは4つの関数を含む複雑な構造をしている．
+
+    ここで，\figref{fig_LSTM_inner}のLSTM内にデータが流れる手順について説明する．
+    \begin{enumerate}
+      \item 前のステップからの出力$h_{t-1}$と入力$x_t$が合流する．合流した信号はコピーされて4つのラインに分岐する．
+      \item 一番上のラインの忘却ゲートでは，前のステップからの記憶一つ一つに対して，$\sigma$関数からの0〜1の値によって情報の取捨選択を行う．このとき1は情報を全て残し，0は全て捨てる．これにより，不要と思われる情報を捨てることで計算の爆発を防ぐ．
+      \item 入力ゲートにおいて，前のステップからの出力$h_{t-1}$と入力$x_t$の合算を長期保存用に変換した上で，どの信号をどのくらいの重みで記憶に保存するか制御する．これは2つの手順で処理する．
+        \begin{enumerate}
+          \item tanh関数を用いて，入ってきた情報の情報量を削減し，必要な情報だけに変換された$c_{t'}$が出力する．
+          \item $\sigma$関数の出力$i_t$によって，$h_{t-1}$を考慮して入力$x_t$の重みを調整する．
+        \end{enumerate}
+      \item 出力ゲートにおいて，上記の処理で取捨選択された長期記憶$c_t$の中で，短期記憶$h_t$に関する部分のみを出力する．これも2つの手順で処理する．
+        \begin{enumerate}
+          \item 前のステップからの記憶$c_{t-1}$と，入力$x_t$を変換した短期記憶$c_{t'}$を合算し，長期記憶$c_t$として出力する．これは，それぞれ既に忘却ゲートおよび入力ゲートで取捨選択が行われている．
+          \item tanh関数に$c_t$を入力したものに対し，$\sigma$関数からの0〜1の値$o_t$によって情報の取捨選択を行う．
+        \end{enumerate}
+    \end{enumerate}
+
+\chapter{実装方法}
+  本章では，開発環境や精度向上のために行ったことについて説明する．
+
+  \section{開発環境}
+    本研究の開発環境を\tabref{tab_environment}に示す．
+    \begin{table}[htbp]
+      \centering
+      \caption{開発環境}
+      \label{tab_environment}
+      \begin{tabular}{c|c}
+        \toprule
+        OS & macOS Catalina 10.15.2 \\
+        CPU & Intel(R) Core i7-5650U CPU@2.20GHz \\
+        プログラミング言語 & Python 3.7.4 \\
+        ニューラルネットワークライブラリ & keras 2.3.1 \\
+        デバッグツール & TensorBoard 2.1.0 \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+
+  \section{学習データセット}
+    今回の学習データセットは，気象庁ホームページ\cite{data}にて公開されている気象観測データをダウンロードして使用する．ダウンロードするにあたって指定した条件を以下に示す．
+    \begin{itemize}
+      \item データ形式:CSV
+      \item 期間:1998/1/1 - 2019/12/31
+      \item 地点:長野市
+      \item 特徴量:日平均現地気圧，日平均気温，日最低気温，日最高気温，降水量の日合計，日照時間，日平均風速，日最大風速，日平均相対湿度，日最小相対湿度，日平均雲量
+    \end{itemize}
+
+    次に，実際にダウンロードしたデータの例を\tabref{tab_sample}に示す．\tabref{tab_sample}より，この状態では気圧の値のみが明らかに桁が大きいため，全体に正規化の処理を施す．
+    \begin{table}[htbp]
+      \centering
+      \caption{学習データの例}
+      \label{tab_sample}
+      \begin{tabular}[htbp]{c|c|c|c|c}
+        日付 & 気圧[hPa] & 平均気温[$^\circ$C] & 最高気温[$^\circ$C] & 最低気温[$^\circ$C] \\ \hline
+        1998/1/1 & 965.8 & 0.4 & 5.5 & -3.9 \\
+        1998/1/2 & 968.3 & 3.2 & 8.0 &  0.0 \\
+        1998/1/3 & 969.9 & 2.3 & 9.8 & -3.0 \\
+        1998/1/4 & 960.8 & 3.2 & 9.7 & -1.1 \\
+      \end{tabular}
+    \end{table}
+
+    \tabref{tab_sample}の値を正規化したものを\tabref{tab_sample_norm}に示す．\tabref{tab_sample_norm}より，全ての値が0〜1の間に収まっており，大小関係も変化していないことがわかる．
+    \begin{table}[htbp]
+      \centering
+      \caption{正規化後の学習データ}
+      \label{tab_sample_norm}
+      \begin{tabular}[htbp]{c|c|c|c|c}
+        日付 & 気圧 & 平均気温 & 最高気温 & 最低気温 \\ \hline
+        1998/1/1 & 0.618 & 0.189 & 0.218 & 0.205 \\
+        1998/1/2 & 0.670 & 0.263 & 0.277 & 0.303 \\
+        1998/1/3 & 0.704 & 0.239 & 0.320 & 0.227 \\
+        1998/1/4 & 0.514 & 0.263 & 0.318 & 0.275 \\
+      \end{tabular}
+    \end{table}
+
+\chapter{結果}
+  ここでは，隠れ層の数によって予測の精度がどの程度向上するのかを調べるため，隠れ層の数が1つの場合，2つの場合，3つの場合の3パターンについてプログラムを実行する．
+
+  まず隠れ層が1つの場合についての結果を\figref{fig_hidden1_acc}，\figref{fig_hidden1_loss}に示す．\figref{fig_hidden1_acc}より，精度が右肩上がりに上昇し，90\%近くに達していることがわかる．また\figref{fig_hidden1_loss}より，損失が右肩下がりに減少し，値が0.25ほどになっていることがわかる．
+  \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=14cm]{./images/hidden1_acc_v3.png}}
+    \caption{隠れ層が1つの場合の精度}
+    \label{fig_hidden1_acc}
+  \end{figure}
+  \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=14cm]{./images/hidden1_loss_v3.png}}
+    \caption{隠れ層が1つの場合の損失}
+    \label{fig_hidden1_loss}
+  \end{figure}
+
+  次に隠れ層が2つの場合についての結果を\figref{fig_hidden2_acc}，\figref{fig_hidden2_loss}に示す．\figref{fig_hidden2_acc}より，精度が99\%に達し\figref{fig_hidden1_acc}よりも高い精度が得られている．また\figref{fig_hidden2_loss}より，損失が0に近い値になり\figref{fig_hidden1_loss}よりも減少していることがわかる．このことから，隠れ層の数を増やすことが精度向上に寄与していると考えられる．
+  \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=14cm]{./images/hidden2_acc_v2.png}}
+    \caption{隠れ層が2つの場合の精度}
+    \label{fig_hidden2_acc}
+  \end{figure}
+  \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=14cm]{./images/hidden2_loss_v2.png}}
+    \caption{隠れ層が2つの場合の損失}
+    \label{fig_hidden2_loss}
+  \end{figure}
+
+  隠れ層が3つの場合についての結果を\figref{fig_hidden3_acc}，\figref{fig_hidden3_loss}に示す．\figref{fig_hidden3_acc}より，エポック数が7の時点で精度の上昇が頭打ちになり，エポック数8で減少していることがわかる．また\figref{fig_hidden3_loss}より，下がっていた損失がエポック数7で上昇していることがわかる．このことから，隠れ層を増やしたことによりニューラルネットワークが複雑になり，過学習が発生していると考えられる．また，以上の結果から隠れ層の数は2つが適当であると考えられる．
+  \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=14cm]{./images/hidden3_acc_v2.png}}
+    \caption{隠れ層が3つの場合の精度}
+    \label{fig_hidden3_acc}
+  \end{figure}
+  \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=14cm]{./images/hidden3_loss_v2.png}}
+    \caption{隠れ層が3つの場合の損失}
+    \label{fig_hidden3_loss}
+  \end{figure}
+
+  隠れ層の数を2つに固定し，プログラムを10回実行した際の精度を\tabref{tab_acc}に示す．\tabref{tab_acc}より，予測の精度は約94\%となった．よって，かなり高い精度で降水量の有無を予測できていると考えられる．
+  \begin{table}[htbp]
+    \centering
+    \caption{予測精度}
+    \label{tab_acc}
+    \begin{tabular}[htbp]{c|c}
+      番号 & 精度 \\ \hline
+      1 & 0.9248 \\
+      2 & 0.9845 \\
+      3 & 0.8873 \\
+      4 & 0.9028 \\
+      5 & 0.9521 \\
+      6 & 0.9578 \\
+      7 & 0.9560 \\
+      8 & 0.9601 \\
+      9 & 0.9380 \\
+      10 & 0.9091 \\ \hline
+      平均 & 0.93725
+    \end{tabular}
+  \end{table}
+
+\chapter{まとめ}
+  % 「はじめに」で振った話や問題意識がどれだけ回収できているか，
+  % なにが問題として残ったのか．
+  % あらためて研究のはじめから終わりまでの全体を俯瞰してのまとめを書く．
+  % どうせやる予定のない「今後の予定」は書いてはいけない．
+  本研究の目標である，過去の気象観測データから翌日の降水量の有無を予測することができた．
+  また研究を進める中で，機械学習を行うプログラムの，実装方法を学ぶことができた．
+
+  改善点としては，現在日別に出力している予測結果を，より詳細な1時間毎の結果に拡大すること．
+  そして降水の有無ではなく，どれくらい雨が降るか，というような降水量の予測を行うことが挙げられる．
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   謝辞と参考文献
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \chapter*{謝辞}
+% 	% ここは自由に書いて良い．その人の協力なくしてこの研究は成し遂げられなかった
+% 	% と思われる人への謝意をあらわす．名前は基本的にフルネームで入れる．
+% 	本研究を進めるに当たり，西村治教授から多大な助言を賜りました．厚く感謝を申し上げます．また一年間同じ研究室で研究を行ってきた青沼葵さん，櫻井優太さん，関谷賢二さん，山本七海さんにも感謝の意を表します．
+% 	\begin{flushright}
+% 		2020年2月
+
+% 		清水翔仁
+% 	\end{flushright}
+
+\begin{thebibliography}{99}
+\bibitem{rinri}{鬼頭 葉子: 技術者の倫理, ナカニシヤ出版, 2018.}
+\bibitem{kishow}{気象庁 | 数値予報課報告・別冊第64号(令和2年2月16日現在): \url{https://www.jma.go.jp/jma/kishou/books/nwpreport/64/chapter1.pdf}}
+\bibitem{data}{気象庁 | 過去の気象データ・ダウンロード(令和2年2月16日現在): \url{https://www.data.jma.go.jp/gmd/risk/obsdl/index.php}}
+\bibitem{oreilly}{Antonio Gulli・Sujit Pal(著)，大串正矢・久保隆宏・中山光樹(訳): 直感Deep Learning, 株式会社オライリー・ジャパン, 2019.}
+\bibitem{python}{Sebastian Raschka・Vahid Mirjalili(著)，株式会社クイープ(訳): [第2版]Python機械学習プログラミング, 株式会社インプレス, 2018.}
+\bibitem{tb}{TensorBoard(令和2年1月20日現在): \url{https://www.tensorflow.org/tensorboard}}
+\end{thebibliography}
+
+\end{document}

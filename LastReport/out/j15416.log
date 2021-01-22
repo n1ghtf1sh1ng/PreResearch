@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.8.1-180226-2.6 (utf8.euc) (TeX Live 2018) (preloaded format=platex 2018.11.1)  21 JAN 2021 19:47
+This is e-pTeX, Version 3.14159265-p3.8.1-180226-2.6 (utf8.euc) (TeX Live 2018) (preloaded format=platex 2018.11.1)  21 JAN 2021 23:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -192,16 +192,81 @@ Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks22
 \verbatim@line=\toks23
 \verbatim@in@stream=\read3
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/itembkbx.sty
+Package: itembkbx 2005/10/02 v 0.16β
+(/usr/local/texlive/2018/texmf-dist/tex/latex/tools/eclbkbox.sty
+\bk@bxb=\box47
+\bk@bxa=\box48
+\bk@lcnt=\count121
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/itembbox.sty
+Package: itembbox 2004/08/10 v 0.19
+(/usr/local/texlive/2018/texmf-dist/tex/latex/ascmac/ascmac.sty
+Package: ascmac 2018/03/09 v2.0h ascmac wrapper (community edition) 
+(/usr/local/texlive/2018/texmf-dist/tex/latex/ascmac/tascmac.sty
+Package: tascmac 2018/03/09 v2.0h ascmac package (community edition) 
+\@savetbaselineshift=\dimen152
+\@saveybaselineshift=\dimen153
+\scb@x=\box49
+\scscb@x=\box50
+\@bw=\dimen154
+\@nbox=\box51
+\@nbody=\box52
+\@scw=\dimen155
+\ascmac@hoboxa=\box53
+\ascmac@hoboxb=\box54
+\@itemh=\dimen156
+\@iboxpos=\toks24
+\@iboxstr=\box55
+\@bwsp=\box56
+\@@bwsp=\box57
+\@bcal=\count122
+\shaderule=\dimen157
+))
+\iboxpos@=\toks25
+\sc@itemb@x=\box58
+\sc@itemb@x@=\box59
+\@itemw=\dimen158
+\shaderule=\dimen159
+\dblboxrule=\dimen160
+\dblboxrulein=\dimen161
+\dblboxsep=\dimen162
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/jquote.sty
+Package: jquote 2005/10/31 v0.01
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/emathC.sty
+Package: emathC 2005/09/03 v0.25
+(/usr/local/texlive/2018/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count123
+\calc@Bcount=\count124
+\calc@Adimen=\dimen163
+\calc@Bdimen=\dimen164
+\calc@Askip=\skip47
+\calc@Bskip=\skip48
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count125
+\calc@Cskip=\skip49
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@tempcnta=\count126
+\templa=\dimen165
+\emath@toks@=\toks26
+\Sett@width=\dimen166
+\EMcalc@A=\dimen167
+)
+\linesep=\dimen168
+\itembkbx@dima=\dimen169
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/fancybox/fancybox.sty
 Package: fancybox 2010/05/15 1.4
 Style option: `fancybox' v1.4 <2010/05/15> (tvz)
-\@fancybox=\box47
-\shadowsize=\dimen152
-\@Sbox=\box48
-\do@VerbBox=\toks24
-\the@fancyput=\toks25
-\this@fancyput=\toks26
-\EndVerbatimTokens=\toks27
+\@fancybox=\box60
+\shadowsize=\dimen170
+\@Sbox=\box61
+\do@VerbBox=\toks27
+\the@fancyput=\toks28
+\this@fancyput=\toks29
+\EndVerbatimTokens=\toks30
 \Verbatim@Outfile=\write4
 \Verbatim@Infile=\read4
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/caption/subcaption.sty
@@ -211,13 +276,13 @@ Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 64.
-\captionmargin=\dimen153
-\captionmargin@=\dimen154
-\captionwidth=\dimen155
-\caption@tempdima=\dimen156
-\caption@indent=\dimen157
-\caption@parindent=\dimen158
-\caption@hangindent=\dimen159
+\captionmargin=\dimen171
+\captionmargin@=\dimen172
+\captionwidth=\dimen173
+\caption@tempdima=\dimen174
+\caption@indent=\dimen175
+\caption@parindent=\dimen176
+\caption@hangindent=\dimen177
 Package caption Info: Unknown document class (or package),
 (caption)             standard defaults will be used.
 )
@@ -227,12 +292,12 @@ Package caption Warning: Unsupported document class (or package) detected,
 See the caption package documentation for explanation.
 
 Package caption Info: \@makecaption = \long macro:#1#2->{\small \advance \leftskip .0628\linewidth \advance \rightskip .0628\linewidth \vskip \abovecaptionskip \sbox \@tempboxa {#1\hskip 1zw\relax #2}\ifdim \wd \@tempboxa <\hsize \centering \fi #1\hskip 1zw\relax #2\par \vskip \belowcaptionskip }.
-\c@caption@flags=\count121
-\c@ContinuedFloat=\count122
+\c@caption@flags=\count127
+\c@ContinuedFloat=\count128
 Package caption Info: listings package is loaded.
 )
-\c@subfigure=\count123
-\c@subtable=\count124
+\c@subfigure=\count129
+\c@subtable=\count130
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/courier.sty
 Package: courier 2005/04/12 PSNFSS-v9.2a (WaS) 
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/url/url.sty
@@ -240,90 +305,90 @@ Package: courier 2005/04/12 PSNFSS-v9.2a (WaS)
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footers
-\f@nch@headwidth=\skip47
-\f@nch@O@elh=\skip48
-\f@nch@O@erh=\skip49
-\f@nch@O@olh=\skip50
-\f@nch@O@orh=\skip51
-\f@nch@O@elf=\skip52
-\f@nch@O@erf=\skip53
-\f@nch@O@olf=\skip54
-\f@nch@O@orf=\skip55
+\f@nch@headwidth=\skip50
+\f@nch@O@elh=\skip51
+\f@nch@O@erh=\skip52
+\f@nch@O@olh=\skip53
+\f@nch@O@orh=\skip54
+\f@nch@O@elf=\skip55
+\f@nch@O@erf=\skip56
+\f@nch@O@olf=\skip57
+\f@nch@O@orf=\skip58
 ) (out/j15416.aux)
 \openout1 = `j15416.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-\c@lstlisting=\count125
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+\c@lstlisting=\count131
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 16.60605pt on input line 32.
+(Font)              scaled to size 16.60605pt on input line 33.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 16.60605pt on input line 32.
+(Font)              scaled to size 16.60605pt on input line 33.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 23.90964pt on input line 32.
+(Font)              scaled to size 23.90964pt on input line 33.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 23.90964pt on input line 32.
+(Font)              scaled to size 23.90964pt on input line 33.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 32.
+(Font)              scaled to size 13.83836pt on input line 33.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 32.
+(Font)              scaled to size 13.83836pt on input line 33.
 [1
 
 
 ]
 1章
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 23.90964pt on input line 54.
+(Font)              scaled to size 23.90964pt on input line 55.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 23.90964pt on input line 54.
+(Font)              scaled to size 23.90964pt on input line 55.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 65.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 66.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 65.
+(Font)              scaled to size 9.60999pt on input line 66.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 65.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 66.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 65.
+(Font)              scaled to size 9.60999pt on input line 66.
 [1
 
 ]
 2章
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 67.
+(Font)              scaled to size 13.83836pt on input line 68.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 67.
+(Font)              scaled to size 13.83836pt on input line 68.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 6.72699pt on input line 71.
+(Font)              scaled to size 6.72699pt on input line 72.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 4.805pt on input line 71.
-LaTeX Font Info:    Try loading font information for U+msa on input line 71.
+(Font)              scaled to size 4.805pt on input line 72.
+LaTeX Font Info:    Try loading font information for U+msa on input line 72.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 71.
+LaTeX Font Info:    Try loading font information for U+msb on input line 72.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 6.72699pt on input line 72.
+(Font)              scaled to size 6.72699pt on input line 73.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 4.805pt on input line 72.
+(Font)              scaled to size 4.805pt on input line 73.
 [2
 
 ]
@@ -335,53 +400,44 @@ File: ./images/LSTM_inner.png Graphic file (type bmp)
 <./images/LSTM_inner.png>
 [3] [4] [5]
 3章
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 155.
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 155.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 141.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 141.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 141.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 141.
+File: ./images/random.pdf Graphic file (type pdf)
+<./images/random.pdf>
+File: ./images/sequential.pdf Graphic file (type pdf)
+<./images/sequential.pdf>
 [6
 
-] [7]
+]
+File: ./images/storedState.pdf Graphic file (type pdf)
+<./images/storedState.pdf>
+File: ./images/burnIn.pdf Graphic file (type pdf)
+<./images/burnIn.pdf>
+[7] [8]
 4章
-File: ./images/hidden1_acc_v3.png Graphic file (type bmp)
-<./images/hidden1_acc_v3.png>
-File: ./images/hidden1_loss_v3.png Graphic file (type bmp)
-<./images/hidden1_loss_v3.png>
-File: ./images/hidden2_acc_v2.png Graphic file (type bmp)
-<./images/hidden2_acc_v2.png>
-File: ./images/hidden2_loss_v2.png Graphic file (type bmp)
-<./images/hidden2_loss_v2.png>
-File: ./images/hidden3_acc_v2.png Graphic file (type bmp)
-<./images/hidden3_acc_v2.png>
-File: ./images/hidden3_loss_v2.png Graphic file (type bmp)
-<./images/hidden3_loss_v2.png>
-[8
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 184.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [9
 
-] [9] [10] [11]
+] [10] [11]
 5章
 [12
 
-]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 281.
-(/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-Underfull \hbox (badness 4595) in paragraph at lines 285--286
-[]\OT1/cmr/m/n/10 TensorBoard(\JY1/mc/m/n/10 令和 \OT1/cmr/m/n/10 2 \JY1/mc/m/n/10 年 \OT1/cmr/m/n/10 1 \JY1/mc/m/n/10 月 \OT1/cmr/m/n/10 20 \JY1/mc/m/n/10 日現在\OT1/cmr/m/n/10 ): $\OT1/pcr/m/n/10 https : / / www . tensorflow . org /
- []
-
-[13
-
 ] (out/j15416.aux) ) 
 Here is how much of TeX's memory you used:
- 5235 strings out of 493248
- 75206 string characters out of 6144402
- 320286 words of memory out of 5000000
- 9132 multiletter control sequences out of 15000+600000
- 14352 words of font info for 67 fonts, out of 8000000 for 9000
+ 5866 strings out of 493248
+ 81765 string characters out of 6144402
+ 324286 words of memory out of 5000000
+ 9738 multiletter control sequences out of 15000+600000
+ 15615 words of font info for 74 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 42i,10n,51p,895b,337s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,10n,51p,895b,406s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on out/j15416.dvi (14 pages, 25236 bytes).
+Output written on out/j15416.dvi (13 pages, 28508 bytes).

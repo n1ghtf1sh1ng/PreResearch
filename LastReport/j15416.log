@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.8.1-180226-2.6 (utf8.euc) (TeX Live 2018) (preloaded format=platex 2018.11.1)  20 JAN 2021 17:43
+This is e-pTeX, Version 3.14159265-p3.8.1-180226-2.6 (utf8.euc) (TeX Live 2018) (preloaded format=platex 2018.11.1)  21 JAN 2021 21:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -323,81 +323,95 @@ LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
 
 
 ]
-LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 37.
-LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 37.
-LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 23.90964pt on input line 37.
-LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 23.90964pt on input line 37.
- (./j15416.toc
-LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 6.72699pt on input line 3.
-LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 4.805pt on input line 3.
-LaTeX Font Info:    Try loading font information for U+msa on input line 3.
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 3.
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
-\tf@toc=\write5
-\openout5 = `j15416.toc'.
-
- [1
-
-]
 1章
-File: ./images/guidance.png Graphic file (type bmp)
-<./images/guidance.png>
-LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 73.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 73.
-LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 73.
+(Font)              scaled to size 23.90964pt on input line 54.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 73.
+(Font)              scaled to size 23.90964pt on input line 54.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 65.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 65.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 65.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 65.
 [1
-
 
 ]
 2章
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 78.
+(Font)              scaled to size 13.83836pt on input line 67.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 78.
+(Font)              scaled to size 13.83836pt on input line 67.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 71.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 4.805pt on input line 71.
+LaTeX Font Info:    Try loading font information for U+msa on input line 71.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 71.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 72.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 4.805pt on input line 72.
+
+
+LaTeX Warning: Reference `eq_Q' on page 2 undefined on input line 78.
+
+[2
+
+]
 File: ./images/RNN.png Graphic file (type bmp)
 <./images/RNN.png>
 File: ./images/RNN_inner.png Graphic file (type bmp)
 <./images/RNN_inner.png>
 File: ./images/LSTM_inner.png Graphic file (type bmp)
 <./images/LSTM_inner.png>
-[2
-
-
-] [3] [4]
+ [3] [4] [5]
 3章
-[5
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 140.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 140.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 140.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 140.
 
-] [6]
+LaTeX Warning: Reference `sec_dqn' on page 6 undefined on input line 141.
+
+
+LaTeX Warning: Reference `fig_random' on page 6 undefined on input line 145.
+
+
+! LaTeX Error: Unknown float option `H'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.146       \begin{figure}[H]
+                             
+? 
+! Interruption.
+\GenericError  ...                                
+                                                  \endgroup 
+l.146       \begin{figure}[H]
+                             
+? 
+File: ./images/random.pdf Graphic file (type pdf)
+<./images/random.pdf>
+[6
+
+] [7]
 4章
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 166.
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 166.
- [7
-
-] [8]
-5章
 File: ./images/hidden1_acc_v3.png Graphic file (type bmp)
 <./images/hidden1_acc_v3.png>
 File: ./images/hidden1_loss_v3.png Graphic file (type bmp)
@@ -410,65 +424,47 @@ File: ./images/hidden3_acc_v2.png Graphic file (type bmp)
 <./images/hidden3_acc_v2.png>
 File: ./images/hidden3_loss_v2.png Graphic file (type bmp)
 <./images/hidden3_loss_v2.png>
-[9
+! Extra alignment tab has been changed to \cr.
+<recently read> \endtemplate 
+                             
+l.208       4 &  &
+                   0.9028 \\
+? 
+[8
 
-] [10] [11] [12]
-6章
-[13
-
-] [14
+] [9] [10] [11]
+5章
+[12
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 292.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 245.
 
  (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Underfull \hbox (badness 4595) in paragraph at lines 296--297
+Underfull \hbox (badness 4595) in paragraph at lines 249--250
 []\OT1/cmr/m/n/10 TensorBoard(\JY1/mc/m/n/10 令和 \OT1/cmr/m/n/10 2 \JY1/mc/m/n
 /10 年 \OT1/cmr/m/n/10 1 \JY1/mc/m/n/10 月 \OT1/cmr/m/n/10 20 \JY1/mc/m/n/10 日
 現在\OT1/cmr/m/n/10 ): $\OT1/pcr/m/n/10 https : / / www . tensorflow . org /
  []
 
-[15
+[13
 
-]
-付録A
-LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 308.
-LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 308.
-LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <9> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 308.
-LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 308.
-LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <9> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 308.
-LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 308.
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 308.
+] (./j15416.aux)
 
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <9> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 308.
-LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 308.
- [16
+LaTeX Warning: There were undefined references.
 
-] [17]
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 308.
 
-[18] [19] (./j15416.aux) ) 
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 5802 strings out of 493248
- 80669 string characters out of 6144402
- 440306 words of memory out of 5000000
- 9682 multiletter control sequences out of 15000+600000
- 18559 words of font info for 85 fonts, out of 8000000 for 9000
+ 5227 strings out of 493248
+ 74804 string characters out of 6144402
+ 319286 words of memory out of 5000000
+ 9127 multiletter control sequences out of 15000+600000
+ 15519 words of font info for 73 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 42i,11n,51p,576b,1904s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,10n,51p,830b,400s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on j15416.dvi (21 pages, 50248 bytes).
+Output written on j15416.dvi (14 pages, 23724 bytes).

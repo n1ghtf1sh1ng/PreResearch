@@ -62,6 +62,25 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/listings/lstmisc.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/listings/lstmisc.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/verbatim.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/verbatim.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/itembkbx.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/itembkbx.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/eclbkbox.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/eclbkbox.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/itembbox.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/itembbox.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/ascmac/ascmac.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/ascmac/ascmac.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/ascmac/tascmac.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/ascmac/tascmac.sty
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/ascmac/ascgrp.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/jquote.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/jquote.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/emathC.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/emathC.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/calc.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/tools/calc.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/fancybox/fancybox.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/fancybox/fancybox.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/caption/subcaption.sty
@@ -120,20 +139,20 @@ INPUT ./images/RNN_inner.png
 INPUT extractbb -B cropbox -O ./images/RNN_inner.png
 INPUT ./images/LSTM_inner.png
 INPUT extractbb -B cropbox -O ./images/LSTM_inner.png
-INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
-INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
-INPUT ./images/hidden1_acc_v3.png
-INPUT extractbb -B cropbox -O ./images/hidden1_acc_v3.png
-INPUT ./images/hidden1_loss_v3.png
-INPUT extractbb -B cropbox -O ./images/hidden1_loss_v3.png
-INPUT ./images/hidden2_acc_v2.png
-INPUT extractbb -B cropbox -O ./images/hidden2_acc_v2.png
-INPUT ./images/hidden2_loss_v2.png
-INPUT extractbb -B cropbox -O ./images/hidden2_loss_v2.png
-INPUT ./images/hidden3_acc_v2.png
-INPUT extractbb -B cropbox -O ./images/hidden3_acc_v2.png
-INPUT ./images/hidden3_loss_v2.png
-INPUT extractbb -B cropbox -O ./images/hidden3_loss_v2.png
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/ptex-fonts/standard/tmin10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/ptex-fonts/standard/tgoth10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
+INPUT ./images/random.pdf
+INPUT extractbb -B cropbox -O ./images/random.pdf
+INPUT ./images/sequential.pdf
+INPUT extractbb -B cropbox -O ./images/sequential.pdf
+INPUT ./images/storedState.pdf
+INPUT extractbb -B cropbox -O ./images/storedState.pdf
+INPUT ./images/burnIn.pdf
+INPUT extractbb -B cropbox -O ./images/burnIn.pdf
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm

@@ -11,6 +11,7 @@
 
 % よくつかうパッケージの読み込み
 \usepackage{verbatim}
+\usepackage{itembkbx}
 \usepackage{fancybox}
 \usepackage{subcaption}
 \usepackage{graphicx}
@@ -25,7 +26,7 @@
 \etGengou{令和2年度}      % 年度
 \etTitle{RNNを用いたPOMDP環境での倒立振り子問題}     % 論文タイトル(日本語)
 \etTitleEn{}    % 論文タイトル(英語)
-\etDate{令和2年2月17日}   % 提出日(1月以降は年に注意)
+\etDate{令和2年2月21日}   % 提出日(1月以降は年に注意)
 \etAuthor{清水 翔仁}       % 著者フルネーム
 \etLabName{西村研究室}     % 研究室名
 \etMyProfessor{山根 智}    % 指導教員フルネーム
@@ -80,10 +81,10 @@
       Q\left(s_{t}, a_{t}\right) = (1-\alpha) Q\left(s_{t}, a_{t}\right)+\alpha\left(r_{t+1}+\gamma \max _{a_{t+1}} Q\left(s_{t+1}, a_{t+1}\right)\right)
     \end{equation}
     ここで$\gamma$は割引率といい，将来の価値をどれだけ割り引いて考えるかのパラメータである．
-  \section{DQN(Deep Q-Network)}
+  \section{DQN(Deep Q-Network)} \label{sec_dqn}
     Q値を最大化させる関数である最適行動価値関数を，ニューラルネットワーク(NN)を使った近似関数で求める手法．状態をNNの入力にし，出力層の各ノードが，各行動の行動価値を出力するようにする．
 
-    強化学習において与えられるデータは時系列的に連続したものになっており，データ間に相関が出てしまうためバラバラにする必要がある．これをExperience Replayという．
+    強化学習において与えられるデータは時系列的に連続したものになっており，データ間に相関が出てしまうためバラバラにする必要がある．これをExperience Replayという．手法としては，まず一旦経験した状態/行動/報酬/遷移先をメモリーに蓄積し，学習を行う際はそこからランダムサンプリングして利用する．
 
   \section{RNN(Recurrent Neural Network)}
     RNNとは，Deep Learningの手法の一種であり，時系列データの分析に特化している．\figref{fig_RNN}に，RNNの模式図を示す．ここで，$x_t$を時刻$t$におけるRNNの入力，$h_t$を時刻$t$におけるRNNの出力とする．
@@ -129,139 +130,148 @@
         \end{enumerate}
     \end{enumerate}
 
-\chapter{実装方法}
-  本章では，開発環境や精度向上のために行ったことについて説明する．
+\chapter{実験方法}
+  本章では，開発環境や実験方法について説明する．
 
   \section{開発環境}
-    本研究の開発環境を\tabref{tab_environment}に示す．
-    \begin{table}[htbp]
-      \centering
-      \caption{開発環境}
-      \label{tab_environment}
-      \begin{tabular}{c|c}
-        \toprule
-        OS & macOS Catalina 10.15.2 \\
-        CPU & Intel(R) Core i7-5650U CPU@2.20GHz \\
-        プログラミング言語 & Python 3.7.4 \\
-        ニューラルネットワークライブラリ & keras 2.3.1 \\
-        デバッグツール & TensorBoard 2.1.0 \\
-        \bottomrule
-      \end{tabular}
-    \end{table}
+    本研究ではGoogle Colaboratoryによって提供された開発環境を用いて実験を行なった．またColab内部で動作しているGPUはTesla T4である．
 
-  \section{学習データセット}
-    今回の学習データセットは，気象庁ホームページ\cite{data}にて公開されている気象観測データをダウンロードして使用する．ダウンロードするにあたって指定した条件を以下に示す．
-    \begin{itemize}
-      \item データ形式:CSV
-      \item 期間:1998/1/1 - 2019/12/31
-      \item 地点:長野市
-      \item 特徴量:日平均現地気圧，日平均気温，日最低気温，日最高気温，降水量の日合計，日照時間，日平均風速，日最大風速，日平均相対湿度，日最小相対湿度，日平均雲量
-    \end{itemize}
+  \section{実験方法}\label{sec_program}
+    今回，LSTMの初期状態を与える方法を検証するため，DQN,DRQN,DRQN-Stack,DRQN-Store-State,R2D2の5つの手法を用いて実装されたプログラムをそれぞれ用意した．それぞれのプログラムの概要について説明を行う．
+    \subsection{DQN}
+      第\ref{sec_dqn}章において説明したDQNを用いたプログラム．このプログラムではLSTMは使用していない．
+    \subsection{DRQN}
+      DRQNを用いたプログラム．DRQNとはDQNにLSTMを組み込んだ手法．時系列表現を獲得することでPOMDPに対応でき，過去の情報を使って解くタスクに強い．
 
-    次に，実際にダウンロードしたデータの例を\tabref{tab_sample}に示す．\tabref{tab_sample}より，この状態では気圧の値のみが明らかに桁が大きいため，全体に正規化の処理を施す．
-    \begin{table}[htbp]
-      \centering
-      \caption{学習データの例}
-      \label{tab_sample}
-      \begin{tabular}[htbp]{c|c|c|c|c}
-        日付 & 気圧[hPa] & 平均気温[$^\circ$C] & 最高気温[$^\circ$C] & 最低気温[$^\circ$C] \\ \hline
-        1998/1/1 & 965.8 & 0.4 & 5.5 & -3.9 \\
-        1998/1/2 & 968.3 & 3.2 & 8.0 &  0.0 \\
-        1998/1/3 & 969.9 & 2.3 & 9.8 & -3.0 \\
-        1998/1/4 & 960.8 & 3.2 & 9.7 & -1.1 \\
-      \end{tabular}
-    \end{table}
-
-    \tabref{tab_sample}の値を正規化したものを\tabref{tab_sample_norm}に示す．\tabref{tab_sample_norm}より，全ての値が0〜1の間に収まっており，大小関係も変化していないことがわかる．
-    \begin{table}[htbp]
-      \centering
-      \caption{正規化後の学習データ}
-      \label{tab_sample_norm}
-      \begin{tabular}[htbp]{c|c|c|c|c}
-        日付 & 気圧 & 平均気温 & 最高気温 & 最低気温 \\ \hline
-        1998/1/1 & 0.618 & 0.189 & 0.218 & 0.205 \\
-        1998/1/2 & 0.670 & 0.263 & 0.277 & 0.303 \\
-        1998/1/3 & 0.704 & 0.239 & 0.320 & 0.227 \\
-        1998/1/4 & 0.514 & 0.263 & 0.318 & 0.275 \\
-      \end{tabular}
-    \end{table}
+      このプログラムではエピソードからランダムに軌跡を取り出し，LSTMの初期状態をzero入力して学習を行う．これをBootstrapped Random Updatesという．シンプルかつランダムにサンプリングできるメリットはあるが，初期状態をzero入力するためLSTMが適切な表現を獲得できない可能性がある．
+      Bootstrapped Random Updatesの模式図を図\ref{fig_random}に示す．
+      \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=12cm]{./images/random.pdf}
+        \caption{Bootstrapped Random Updates}
+        \label{fig_random}
+      \end{figure}
+    \subsection{DRQN-Stack}
+      DRQNを用いたプログラム．このプログラムでは1エピソード全部のデータを使って学習を行う．これをBootstrapped Sequential Updatesという．LSTM初期化で困ることはないが，バリアンスが大きい，エピソード長が可変などの問題がある．Bootstrapped Sequential Updatesの模式図を図\ref{fig_sequential}に示す．
+      \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=10cm]{./images/sequential.pdf}
+        \caption{Bootstrapped Sequential Updates}
+        \label{fig_sequential}
+      \end{figure}
+    \subsection{DRQN-Store-State}\label{sec_ss}
+      DRQNを用いたプログラム．このプログラムではBootstrapped Random Updatesに加えて，Replay Bufferに経験$e!$とともにその時のLSTMのhidden stateを貯めておく．これによりLSTMの初期状態問題を改善している．模式図を図\ref{fig_storedState}に示す．
+      \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=12cm]{./images/storedState.pdf}
+        \caption{Bootstrapped Random Updates + Replay Buffer}
+        \label{fig_storedState}
+      \end{figure}
+    \subsection{R2D2}
+      DRQNを用いたプログラム．このプログラムでは第\ref{sec_ss}節で述べたBootstrapped Random UpdatesとReplay Bufferの組み合わせに加えて，Burn-inという手法を採用している．これは最初は学習を行わずデータだけを流し今のネットワークの重みに慣れさせるという手法である．これにより正確なhidden stateを復元することができる．模式図を図\ref{fig_burnIn}に示す．
+      \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=12cm]{./images/burnIn.pdf}
+        \caption{Bootstrapped Random Updates + Replay Buffer + Burn-in}
+        \label{fig_burnIn}
+      \end{figure}
 
 \chapter{結果}
-  ここでは，隠れ層の数によって予測の精度がどの程度向上するのかを調べるため，隠れ層の数が1つの場合，2つの場合，3つの場合の3パターンについてプログラムを実行する．
+  第\ref{sec_program}章で述べた5つのプログラムの実行結果を示す．
 
-  まず隠れ層が1つの場合についての結果を\figref{fig_hidden1_acc}，\figref{fig_hidden1_loss}に示す．\figref{fig_hidden1_acc}より，精度が右肩上がりに上昇し，90\%近くに達していることがわかる．また\figref{fig_hidden1_loss}より，損失が右肩下がりに減少し，値が0.25ほどになっていることがわかる．
-  \begin{figure}[htbp]
-    \centering
-    \fbox{\includegraphics[width=14cm]{./images/hidden1_acc_v3.png}}
-    \caption{隠れ層が1つの場合の精度}
-    \label{fig_hidden1_acc}
-  \end{figure}
-  \begin{figure}[htbp]
-    \centering
-    \fbox{\includegraphics[width=14cm]{./images/hidden1_loss_v3.png}}
-    \caption{隠れ層が1つの場合の損失}
-    \label{fig_hidden1_loss}
-  \end{figure}
+  DQNの実行結果を以下に示す．これより，scoreは伸びず収束しないまま終了していることがわかる．
+  \begin{breakitembox}[l]{DQNの実行結果}
+    \begin{verbatim}
+0 episode | score: 30.00 | epsilon: 1.00
+10 episode | score: 29.53 | epsilon: 1.00
+20 episode | score: 28.56 | epsilon: 1.00
+30 episode | score: 28.49 | epsilon: 1.00
+40 episode | score: 27.54 | epsilon: 1.00
+                  ...
+29950 episode | score: 20.64 | epsilon: 0.10
+29960 episode | score: 20.01 | epsilon: 0.10
+29970 episode | score: 19.50 | epsilon: 0.10
+29980 episode | score: 19.06 | epsilon: 0.10
+29990 episode | score: 19.01 | epsilon: 0.10
+    \end{verbatim}
+  \end{breakitembox}
 
-  次に隠れ層が2つの場合についての結果を\figref{fig_hidden2_acc}，\figref{fig_hidden2_loss}に示す．\figref{fig_hidden2_acc}より，精度が99\%に達し\figref{fig_hidden1_acc}よりも高い精度が得られている．また\figref{fig_hidden2_loss}より，損失が0に近い値になり\figref{fig_hidden1_loss}よりも減少していることがわかる．このことから，隠れ層の数を増やすことが精度向上に寄与していると考えられる．
-  \begin{figure}[htbp]
-    \centering
-    \fbox{\includegraphics[width=14cm]{./images/hidden2_acc_v2.png}}
-    \caption{隠れ層が2つの場合の精度}
-    \label{fig_hidden2_acc}
-  \end{figure}
-  \begin{figure}[htbp]
-    \centering
-    \fbox{\includegraphics[width=14cm]{./images/hidden2_loss_v2.png}}
-    \caption{隠れ層が2つの場合の損失}
-    \label{fig_hidden2_loss}
-  \end{figure}
+  DRQNの実行結果を以下に示す．これより，DQNと同様にscoreは伸びず収束しないまま終了していることがわかる．これは初期状態がzero入力されたことによるものだと考えられる．
+  \begin{breakitembox}[l]{DRQNの実行結果}
+    \begin{verbatim}
+0 episode | score: 26.00 | epsilon: 1.00
+10 episode | score: 25.24 | epsilon: 1.00
+20 episode | score: 24.43 | epsilon: 1.00
+30 episode | score: 23.89 | epsilon: 1.00
+40 episode | score: 23.61 | epsilon: 1.00
+                  ...
+29950 episode | score: 18.53 | epsilon: 0.10
+29960 episode | score: 19.06 | epsilon: 0.10
+29970 episode | score: 18.99 | epsilon: 0.10
+29980 episode | score: 19.30 | epsilon: 0.10
+29990 episode | score: 19.10 | epsilon: 0.10
+    \end{verbatim}
+  \end{breakitembox}
 
-  隠れ層が3つの場合についての結果を\figref{fig_hidden3_acc}，\figref{fig_hidden3_loss}に示す．\figref{fig_hidden3_acc}より，エポック数が7の時点で精度の上昇が頭打ちになり，エポック数8で減少していることがわかる．また\figref{fig_hidden3_loss}より，下がっていた損失がエポック数7で上昇していることがわかる．このことから，隠れ層を増やしたことによりニューラルネットワークが複雑になり，過学習が発生していると考えられる．また，以上の結果から隠れ層の数は2つが適当であると考えられる．
-  \begin{figure}[htbp]
-    \centering
-    \fbox{\includegraphics[width=14cm]{./images/hidden3_acc_v2.png}}
-    \caption{隠れ層が3つの場合の精度}
-    \label{fig_hidden3_acc}
-  \end{figure}
-  \begin{figure}[htbp]
-    \centering
-    \fbox{\includegraphics[width=14cm]{./images/hidden3_loss_v2.png}}
-    \caption{隠れ層が3つの場合の損失}
-    \label{fig_hidden3_loss}
-  \end{figure}
+  DRQN-Stackの実行結果を以下に示す．これより，DQNやDRQNとは違いscoreが200近くで収束していることがわかる．これはBootstrapped Sequential Updatesによって初期状態が与えられたことによるものだと考えられる．
+  \begin{breakitembox}[l]{DRQN-Stackの実行結果}
+    \begin{verbatim}
+0 episode | score: 26.00 | epsilon: 1.00
+10 episode | score: 25.50 | epsilon: 1.00
+20 episode | score: 26.68 | epsilon: 1.00
+30 episode | score: 26.13 | epsilon: 1.00
+40 episode | score: 25.58 | epsilon: 1.00
+                  ...
+700 episode | score: 162.81 | epsilon: 0.10
+710 episode | score: 170.72 | epsilon: 0.10
+720 episode | score: 180.14 | epsilon: 0.10
+730 episode | score: 191.17 | epsilon: 0.10
+740 episode | score: 199.45 | epsilon: 0.10
+    \end{verbatim}
+  \end{breakitembox}
 
-  隠れ層の数を2つに固定し，プログラムを10回実行した際の精度を\tabref{tab_acc}に示す．\tabref{tab_acc}より，予測の精度は約94\%となった．よって，かなり高い精度で降水量の有無を予測できていると考えられる．
-  \begin{table}[htbp]
-    \centering
-    \caption{予測精度}
-    \label{tab_acc}
-    \begin{tabular}[htbp]{c|c}
-      番号 & 精度 \\ \hline
-      1 & 0.9248 \\
-      2 & 0.9845 \\
-      3 & 0.8873 \\
-      4 & 0.9028 \\
-      5 & 0.9521 \\
-      6 & 0.9578 \\
-      7 & 0.9560 \\
-      8 & 0.9601 \\
-      9 & 0.9380 \\
-      10 & 0.9091 \\ \hline
-      平均 & 0.93725
-    \end{tabular}
-  \end{table}
+  DRQN-Store-Stateの実行結果を以下に示す．これより，DRQN-Stackに比べ，収束までのステップ数が長いことがわかる．
+  \begin{breakitembox}[l]{DRQN-Stackの実行結果}
+    \begin{verbatim}
+0 episode | score: 23.00 | epsilon: 1.00
+10 episode | score: 22.77 | epsilon: 1.00
+20 episode | score: 22.79 | epsilon: 1.00
+30 episode | score: 22.82 | epsilon: 1.00
+40 episode | score: 22.67 | epsilon: 1.00
+                  ...
+820 episode | score: 148.15 | epsilon: 0.10
+830 episode | score: 147.86 | epsilon: 0.10
+840 episode | score: 158.67 | epsilon: 0.10
+850 episode | score: 169.52 | epsilon: 0.10
+860 episode | score: 192.27 | epsilon: 0.10
+    \end{verbatim}
+  \end{breakitembox}
+
+  R2D2の実行結果を以下に示す．これより，他のプログラムに比べ最も短いステップ数で収束していることがわかる．これはBurn-inによってhidden stateの復元期間を設けることでより正確な学習ができていると考えられる．
+  \begin{breakitembox}[l]{DRQN-Stackの実行結果}
+    \begin{verbatim}
+0 episode | score: 10.00 | epsilon: 1.00
+10 episode | score: 11.90 | epsilon: 1.00
+20 episode | score: 12.74 | epsilon: 1.00
+30 episode | score: 14.22 | epsilon: 1.00
+40 episode | score: 15.35 | epsilon: 1.00
+                  ...
+490 episode | score: 140.98 | epsilon: 0.10
+500 episode | score: 159.77 | epsilon: 0.10
+510 episode | score: 179.90 | epsilon: 0.10
+520 episode | score: 192.32 | epsilon: 0.10
+530 episode | score: 200.57 | epsilon: 0.10
+    \end{verbatim}
+  \end{breakitembox}
 
 \chapter{まとめ}
   % 「はじめに」で振った話や問題意識がどれだけ回収できているか，
   % なにが問題として残ったのか．
   % あらためて研究のはじめから終わりまでの全体を俯瞰してのまとめを書く．
   % どうせやる予定のない「今後の予定」は書いてはいけない．
-  本研究の目標である，過去の気象観測データから翌日の降水量の有無を予測することができた．
-  また研究を進める中で，機械学習を行うプログラムの，実装方法を学ぶことができた．
-
-  改善点としては，現在日別に出力している予測結果を，より詳細な1時間毎の結果に拡大すること．
-  そして降水の有無ではなく，どれくらい雨が降るか，というような降水量の予測を行うことが挙げられる．
+  本研究の目標である，LSTMの初期状態問題の検証を行うことができた．
+  また今回使用した5つのプログラムの内3つのプログラムでは，結果が収束したため初期状態問題は改善されていると考えられる．
+  特にR2-D2においては他のプログラムに比べ200ステップ数ほど早い段階で収束しており，Bootstrapped RandomUpdatesとReplay Buffer，Burn-inの組み合わせがうまく機能していると考えられる．
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   謝辞と参考文献
@@ -276,13 +286,13 @@
 % 		清水翔仁
 % 	\end{flushright}
 
-\begin{thebibliography}{99}
-\bibitem{rinri}{鬼頭 葉子: 技術者の倫理, ナカニシヤ出版, 2018.}
-\bibitem{kishow}{気象庁 | 数値予報課報告・別冊第64号(令和2年2月16日現在): \url{https://www.jma.go.jp/jma/kishou/books/nwpreport/64/chapter1.pdf}}
-\bibitem{data}{気象庁 | 過去の気象データ・ダウンロード(令和2年2月16日現在): \url{https://www.data.jma.go.jp/gmd/risk/obsdl/index.php}}
-\bibitem{oreilly}{Antonio Gulli・Sujit Pal(著)，大串正矢・久保隆宏・中山光樹(訳): 直感Deep Learning, 株式会社オライリー・ジャパン, 2019.}
-\bibitem{python}{Sebastian Raschka・Vahid Mirjalili(著)，株式会社クイープ(訳): [第2版]Python機械学習プログラミング, 株式会社インプレス, 2018.}
-\bibitem{tb}{TensorBoard(令和2年1月20日現在): \url{https://www.tensorflow.org/tensorboard}}
-\end{thebibliography}
+% \begin{thebibliography}{99}
+% \bibitem{rinri}{鬼頭 葉子: 技術者の倫理, ナカニシヤ出版, 2018.}
+% \bibitem{kishow}{気象庁 | 数値予報課報告・別冊第64号(令和2年2月16日現在): \url{https://www.jma.go.jp/jma/kishou/books/nwpreport/64/chapter1.pdf}}
+% \bibitem{data}{気象庁 | 過去の気象データ・ダウンロード(令和2年2月16日現在): \url{https://www.data.jma.go.jp/gmd/risk/obsdl/index.php}}
+% \bibitem{oreilly}{Antonio Gulli・Sujit Pal(著)，大串正矢・久保隆宏・中山光樹(訳): 直感Deep Learning, 株式会社オライリー・ジャパン, 2019.}
+% \bibitem{python}{Sebastian Raschka・Vahid Mirjalili(著)，株式会社クイープ(訳): [第2版]Python機械学習プログラミング, 株式会社インプレス, 2018.}
+% \bibitem{tb}{TensorBoard(令和2年1月20日現在): \url{https://www.tensorflow.org/tensorboard}}
+% \end{thebibliography}
 
 \end{document}

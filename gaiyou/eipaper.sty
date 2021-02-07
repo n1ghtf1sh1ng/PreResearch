@@ -1,0 +1,86 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                %
+%  このファイルは編集しないこと  %
+%                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{url}
+\usepackage[superscript]{cite}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{newtxmath}
+\usepackage{newtxtext}
+\usepackage{listings}
+\usepackage{jlisting}
+\usepackage{okumacro}
+
+
+%
+%  本文の行間の倍率指定
+%
+\renewcommand{\baselinestretch}{0.955}
+
+
+%
+%  ヘッダとフッタの設定
+%\
+\pagestyle{fancy}
+\newcounter{Nanki}
+\newcounter{HappyoYear}
+\lhead{Vol.\theNanki\ No. 1}%Vol. 24 No. 1みたいな
+\chead[長野高専 電子情報工学科 卒業研究発表会]{\JtitleShort}
+\rhead{
+    \ifcase\Happyo\or
+      Jan.\or Feb.\or Mar.\or Apr.\or May\or Jun.\or
+      Jul.\or Aug.\or Sep.\or October\or Nov.\or Dec.\fi
+\ \number\theHappyoYear}  %Feb. 2016みたいな
+\lfoot{}
+\cfoot{\LabSymbol-\thepage}  %B-5みたいな
+\rfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+%
+%  脚注記号を変更する
+%
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+
+%
+%  タイトル
+%
+\newcommand{\Maketitle}
+{
+\begin{center}
+{\huge\Jtitle}\\
+\vspace*{1em}
+{\large \Author\footnotemark[1]}\\
+\vspace*{1em}
+{\Large\textbf{\Etitle}}\\
+\end{center}
+\vspace*{1em}
+}
+
+
+%
+%  eqnarray環境の途中で改ページを認める
+%  0は改ページしない、4は必ず改ページする。
+%
+\allowdisplaybreaks[1]
+
+
+%
+%  参照形式の変更
+%
+\newcommand{\tabref}[1]{表\ref{#1}}
+\newcommand{\figref}[1]{図\ref{#1}}
+
+
+%
+% 参考文献の引用箇所のスタイル変更
+%
+\renewcommand{\cite}[1]{${}^{\mbox{\footnotesize\citen{#1})}}$}
+\newcommand{\Cite}[1]{[\citen{#1}]}
